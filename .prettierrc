@@ -1,0 +1,19 @@
+{
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "singleQuote": true,
+  "trailingComma": "all",
+  "embeddedLanguageFormatting": "auto",
+  "language": "postgresql",
+  "keywordCase": "upper",
+  "importOrder": [
+    "^\\u0000",
+    "^@eslint/(?!.*\\.css$).*",
+    "<THIRD_PARTY_MODULES>",
+    "^vitest/*",
+    "^@lib/(?!.*\\.css$).*",
+    "^\\u0000",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}

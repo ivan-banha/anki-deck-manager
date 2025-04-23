@@ -1,0 +1,41 @@
+{
+  "name": "anki-deck-manager",
+  "version": "1.0.0",
+  "description": "Node.js library to edit Anki deck files.",
+  "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivan-banha/anki-deck-manager.git"
+  },
+  "keywords": [
+    "node.js",
+    "anki",
+    "apkg",
+    "typescript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ivan-banha/anki-deck-manager/issues"
+  },
+  "homepage": "https://github.com/ivan-banha/anki-deck-manager#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.25.1",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "eslint": "^9.25.1",
+    "eslint-plugin-prettier": "^5.2.6",
+    "lint-staged": "^15.5.1",
+    "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.31.0",
+    "vitest": "^3.1.2"
+  }
+}

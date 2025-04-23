@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "streetsidesoftware.code-spell-checker",
+        "aaron-bond.better-comments",
+        "alefragnani.bookmarks",
+        "dbaeumer.vscode-eslint",
+        "vitest.explorer",
+        "esbenp.prettier-vscode"
+    ]
+}
