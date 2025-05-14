@@ -1,0 +1,52 @@
+[
+  {
+    "headword": "Abandon",
+    "definitions": [
+      {
+        "definition": "to leave a place, thing, or person, usually for ever",
+        "part": "verb",
+        "examples": [
+          "We had to abandon the car.",
+          "By the time the rebel troops arrived, the village had already been abandoned."
+        ]
+      },
+      {
+        "definition": "to leave behind or run away from someone or something, or to give up something",
+        "part": "verb",
+        "examples": [
+          "Air attacks forced the villagers to abandon their homes.",
+          "The government has abandoned its plans to increase taxes."
+        ]
+      },
+      {
+        "definition": "to stop doing an activity before you have finished it",
+        "part": "verb",
+        "examples": [
+          "The game was abandoned at half-time because of the poor weather conditions.",
+          "They had to abandon their attempt to climb the mountain."
+        ]
+      }
+    ]
+  },
+  {
+    "headword": "Abate",
+    "definitions": [
+      {
+        "definition": "to become less strong or decrease",
+        "part": "verb",
+        "examples": [
+          "The storm has started to abate.",
+          "The pain in his shoulder showed no sign of abating."
+        ]
+      },
+      {
+        "definition": "to reduce the amount, degree, or intensity of something",
+        "part": "verb",
+        "examples": [
+          "The government is trying to abate inflation.",
+          "The company is taking steps to abate pollution."
+        ]
+      }
+    ]
+  }
+]
