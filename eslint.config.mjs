@@ -16,4 +16,10 @@ export default [
     },
   },
   ...tseslint.config(eslint.configs.recommended, tseslint.configs.recommended),
+  {
+    rules: {
+      '@typescript-eslint/no-empty-object-type': 'warn',
+      '@typescript-eslint/no-unused-vars': 'warn',
+    },
+  },
 ];
