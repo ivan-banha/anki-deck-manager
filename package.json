@@ -27,16 +27,16 @@
   },
   "homepage": "https://github.com/ivan-banha/anki-deck-manager#readme",
   "devDependencies": {
-    "@eslint/js": "^9.25.1",
+    "@eslint/js": "^9.28.0",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
-    "eslint": "^9.25.1",
-    "eslint-plugin-prettier": "^5.2.6",
-    "lint-staged": "^15.5.1",
+    "eslint": "^9.28.0",
+    "eslint-plugin-prettier": "^5.4.1",
+    "lint-staged": "^15.5.2",
     "prettier": "^3.5.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.31.0",
-    "vitest": "^3.1.2"
+    "typescript-eslint": "^8.33.1",
+    "vitest": "^3.2.1"
   },
   "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977"
 }
