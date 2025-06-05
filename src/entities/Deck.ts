@@ -1,5 +1,8 @@
-import { Card } from './Card';
-import { Template } from './Template';
+import initSqlJs, { Database } from 'sql.js';
+
+import { ApkgPackage } from '../types.js';
+import { Card } from './Card.js';
+import { Template } from './Template.js';
 
 /*
  * TODO:
@@ -13,12 +16,43 @@ import { Template } from './Template';
  *  - The "ord" field is located in the "fields" table
  */
 export class Deck {
-  constructor() {}
+  #db: Database;
+  #media: ApkgPackage['media'];
 
-  public getName() {
+  static async from(apkg: ApkgPackage) {
+    const sql = await initSqlJs();
+    const db = new sql.Database(new Uint8Array(apkg.db));
+
+    return new Deck(db, apkg.media);
+  }
+
+  constructor(db: Database, media: ApkgPackage['media']) {
+    this.#db = db;
+    this.#media = media;
+  }
+
+  public async getName() {
+    // The decks field contains json array with decks.
+    // How to know which one to use?
+    const result = this.#db.exec('SELECT decks FROM col');
+
+    if (result == null || result.length === 0) {
+      return null;
+    }
+
+    // TODO: Create type for "unknown"
+    const deckJsons: Record<string, unknown> = JSON.parse(
+      result[0].values[0][0]?.toString() ?? '{}',
+    );
+
+    const decks = [];
+
+    for (const [deckId, deckJson] of Object.entries(deckJsons)) {
+      decks.push(deckJson);
+    }
     // Old deck: table "col" -> field "decks"
     // New deck: table "decks"?
-    throw new Error('Not implemented');
+    return (decks[0] as any)['name'];
   }
 
   // Where is description?

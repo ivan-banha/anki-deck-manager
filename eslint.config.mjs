@@ -20,6 +20,8 @@ export default [
     rules: {
       '@typescript-eslint/no-empty-object-type': 'warn',
       '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      'no-unused-private-class-members': 'warn',
     },
   },
 ];

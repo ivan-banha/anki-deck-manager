@@ -1,9 +1,12 @@
+import { join } from 'path';
+
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { DeckManager } from './DeckManager';
+import { dirName } from '../constants.js';
+import { DeckManager } from './DeckManager.js';
 
 describe('DeckManager', () => {
-  let manager: DeckManager;
+  let manager: c;
 
   beforeEach(() => {
     manager = new DeckManager();
@@ -13,8 +16,18 @@ describe('DeckManager', () => {
     expect(() => manager.createDeck('test-path')).toThrow('Not implemented');
   });
 
-  it('should throw on readDeck', () => {
-    expect(() => manager.readDeck('test-path')).toThrow('Not implemented');
+  it('should read old version of apkg file', async () => {
+    const deckPath = join(dirName, 'entities', 'test-files', 'old-deck.apkg');
+    const deck = await manager.readDeck(deckPath);
+
+    expect(deck).not.toBeNull();
+  });
+
+  it.skip('should read new version of apkg file', async () => {
+    const deckPath = join(dirName, 'entities', 'test-files', 'new-deck.apkg');
+    const deck = await manager.readDeck(deckPath);
+
+    expect(deck).not.toBeNull();
   });
 
   it('should throw on updateDeck', () => {

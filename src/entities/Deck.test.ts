@@ -1,22 +1,30 @@
+import { join } from 'path';
+
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { Card } from './Card';
-import { Deck } from './Deck';
-import { Template } from './Template';
+import { dirName } from '../constants.js';
+import { Card } from './Card.js';
+import { Deck } from './Deck.js';
+import { DeckManager } from './DeckManager.js';
+import { Template } from './Template.js';
 
-describe('Deck', () => {
+describe('Deck from old .apkg version', () => {
   let deck: Deck;
   let card: Card;
   let template: Template;
 
-  beforeEach(() => {
-    deck = new Deck();
+  beforeEach(async () => {
+    const manager = new DeckManager();
+    const deckPath = join(dirName, 'entities', 'test-files', 'old-deck.apkg');
+    deck = await manager.readDeck(deckPath);
+
     card = new Card();
     template = new Template();
   });
 
-  it('should throw on getName', () => {
-    expect(() => deck.getName()).toThrow('Not implemented');
+  it('should read deck name', async () => {
+    const name = await deck.getName();
+    expect(name).toBe('Default');
   });
 
   it('should throw on getDescription', () => {
@@ -56,7 +64,9 @@ describe('Deck', () => {
   });
 
   it('should throw on setDescription', () => {
-    expect(() => deck.setDescription('test-description')).toThrow('Not implemented');
+    expect(() => deck.setDescription('test-description')).toThrow(
+      'Not implemented',
+    );
   });
 
   it('should throw on addCard', () => {
