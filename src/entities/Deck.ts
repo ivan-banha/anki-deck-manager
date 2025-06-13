@@ -40,7 +40,8 @@ export class Deck {
       return null;
     }
 
-    const deckJsons: Record<string, { desc: string}> = JSON.parse(
+    // TODO: Create type for "unknown"
+    const deckJsons: Record<string, unknown> = JSON.parse(
       result[0].values[0][0]?.toString() ?? '{}',
     );
 
@@ -61,8 +62,7 @@ export class Deck {
       return null;
     }
 
-    // TODO: Create type for "unknown"
-    const deckJsons: Record<string, unknown> = JSON.parse(
+    const deckJsons: Record<string, { desc: string }> = JSON.parse(
       result[0].values[0][0]?.toString() ?? '{}',
     );
 
