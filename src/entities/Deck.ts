@@ -40,8 +40,7 @@ export class Deck {
       return null;
     }
 
-    // TODO: Create type for "unknown"
-    const deckJsons: Record<string, unknown> = JSON.parse(
+    const deckJsons: Record<string, { desc: string}> = JSON.parse(
       result[0].values[0][0]?.toString() ?? '{}',
     );
 
@@ -132,7 +131,3 @@ export class Deck {
     throw new Error('Not implemented');
   }
 }
-
-
-
-// {"1":{"id":1,"mod":0,"name":"Default","usn":0,"lrnToday":[0,0],"revToday":[0,0],"newToday":[0,0],"timeToday":[0,0],"collapsed":true,"browserCollapsed":true,"desc":"","dyn":0,"conf":1,"extendNew":0,"extendRev":0,"reviewLimit":null,"newLimit":null,"reviewLimitToday":null,"newLimitToday":null}}
