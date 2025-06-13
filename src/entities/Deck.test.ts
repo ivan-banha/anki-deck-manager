@@ -27,8 +27,9 @@ describe('Deck from old .apkg version', () => {
     expect(name).toBe('Default');
   });
 
-  it('should throw on getDescription', () => {
-    expect(() => deck.getDescription()).toThrow('Not implemented');
+  it('should throw on getDescription', async () => {
+    const desc = await deck.getDescription();
+    expect(desc).toBe('');
   });
 
   it('should throw on isEmpty', () => {
