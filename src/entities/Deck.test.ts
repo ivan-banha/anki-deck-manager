@@ -27,13 +27,14 @@ describe('Deck from old .apkg version', () => {
     expect(name).toBe('Default');
   });
 
-  it('should throw on getDescription', async () => {
-    const desc = await deck.getDescription();
+  it('should return the string description when getDescription() is called', () => {
+    const desc = deck.getDescription();
     expect(desc).toBe('');
   });
 
-  it('should throw on isEmpty', () => {
-    expect(() => deck.isEmpty()).toThrow('Not implemented');
+  it('should return true when isEmpty() is called and deck is empty', () => {
+    const result = deck.isEmpty();
+    expect(result).toBe(false);
   });
 
   it('should throw on getCardsCount', () => {

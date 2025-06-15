@@ -84,8 +84,12 @@ export class Deck {
   }
 
   public isEmpty() {
-    // Check if cards table is empty
-    throw new Error('Not implemented');
+    const result = this.#db.exec('SELECT COUNT(*) FROM cards');
+    if (result == null || result.length === 0) {
+      return true;
+    }
+
+    return (result[0].values[0][0] as number) === 0;
   }
 
   public getCardsCount() {
