@@ -1,4 +1,5 @@
 import initSqlJs, { Database } from 'sql.js';
+import sha1 from "sha1";
 
 import { ApkgPackage } from '../types.js';
 import { Card } from './Card.js';
@@ -18,6 +19,9 @@ import { Template } from './Template.js';
 export class Deck {
   #db: Database;
   #media: ApkgPackage['media'];
+  separator = "\u001F";
+  topDeckId: any;
+  topModelId: any;
 
   static async from(apkg: ApkgPackage) {
     const sql = await initSqlJs();
@@ -29,6 +33,11 @@ export class Deck {
   constructor(db: Database, media: ApkgPackage['media']) {
     this.#db = db;
     this.#media = media;
+    const now = Date.now();
+    const topDeckId = this._getId("cards", "did", now);
+    const topModelId = this._getId("notes", "mid", now);
+    this.topDeckId = topDeckId;
+    this.topModelId = topModelId;
   }
 
   public async getName() {
@@ -116,7 +125,50 @@ export class Deck {
   }
 
   public addCard(card: Card) {
-    throw new Error('Not implemented');
+    const now = Date.now();
+    const note_guid = this._getNoteGuid(this.topDeckId, card.getFront(), card.getBack());
+    const note_id = this._getNoteId(note_guid, now);
+
+    this._update(
+      "insert or replace into notes values(:id,:guid,:mid,:mod,:usn,:tags,:flds,:sfld,:csum,:flags,:data)",
+      {
+        ":id": note_id, // integer primary key,
+        ":guid": note_guid, // text not null,
+        ":mid": this.topModelId, // integer not null,
+        ":mod": this._getId("notes", "mod", now), // integer not null,
+        ":usn": -1, // integer not null,
+        ":tags": 'todo', // text not null,
+        ":flds": card.getFront() + this.separator + card.getBack(), // text not null,
+        ":sfld": card.getFront(), // integer not null,
+        ":csum": this._checksum(card.getFront() + separator + card.getBack()), //integer not null,
+        ":flags": 0, // integer not null,
+        ":data": "", // text not null,
+      }
+    );
+
+    return this._update(
+      "insert or replace into cards values(:id,:nid,:did,:ord,:mod,:usn,:type,:queue,:due,:ivl,:factor,:reps,:lapses,:left,:odue,:odid,:flags,:data)",
+      {
+        ":id": this._getCardId(note_id, now), // integer primary key,
+        ":nid": note_id, // integer not null,
+        ":did": this.topDeckId, // integer not null,
+        ":ord": 0, // integer not null,
+        ":mod": this._getId("cards", "mod", now), // integer not null,
+        ":usn": -1, // integer not null,
+        ":type": 0, // integer not null,
+        ":queue": 0, // integer not null,
+        ":due": 179, // integer not null,
+        ":ivl": 0, // integer not null,
+        ":factor": 0, // integer not null,
+        ":reps": 0, // integer not null,
+        ":lapses": 0, // integer not null,
+        ":left": 0, // integer not null,
+        ":odue": 0, // integer not null,
+        ":odid": 0, // integer not null,
+        ":flags": 0, // integer not null,
+        ":data": "", // text not null
+      }
+    );
   }
 
   public getTemplates(): Template[] {
@@ -133,5 +185,38 @@ export class Deck {
   public deleteTemplate(template: Template): void;
   public deleteTemplate(value: string | Template): void {
     throw new Error('Not implemented');
+  }
+
+  _update(query: string, obj?: BindParams) {
+    this.#db.prepare(query).getAsObject(obj);
+  }
+
+  _getNoteId(guid, ts) {
+    const query = `SELECT id from notes WHERE guid = :guid ORDER BY id DESC LIMIT 1`;
+    const rowObj = this.#db.prepare(query).getAsObject({ ":guid": guid });
+
+    return rowObj.id || this._getId("notes", "id", ts);
+  }
+
+  _getId(table, col, ts) {
+    const query = `SELECT ${col} from ${table} WHERE ${col} >= :ts ORDER BY ${col} DESC LIMIT 1`;
+    const rowObj = this.#db.prepare(query).getAsObject({ ":ts": ts });
+
+    return rowObj[col] ? +rowObj[col] + 1 : ts;
+  }
+
+  _getNoteGuid(topDeckId, front, back) {
+    return sha1(`${topDeckId}${front}${back}`);
+  }
+
+  _checksum(str: string) {
+    return parseInt(sha1(str).substr(0, 8), 16);
+  }
+
+  _getCardId(note_id, ts) {
+    const query = `SELECT id from cards WHERE nid = :note_id ORDER BY id DESC LIMIT 1`;
+    const rowObj = this.#db.prepare(query).getAsObject({ ":note_id": note_id });
+
+    return rowObj.id || this._getId("cards", "id", ts);
   }
 }
