@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import { Card } from './Card';
-import { Template } from './Template';
+import { TemplateV1 } from './template/TemplateV1.js';
 
 describe('Card', () => {
   let card: Card;
@@ -31,13 +31,13 @@ describe('Card', () => {
   });
 
   it('should throw on setFrontTemplate', () => {
-    expect(() => card.setFrontTemplate(new Template())).toThrow(
+    expect(() => card.setFrontTemplate(new TemplateV1())).toThrow(
       'Not implemented',
     );
   });
 
   it('should throw on setBackTemplate', () => {
-    expect(() => card.setBackTemplate(new Template())).toThrow(
+    expect(() => card.setBackTemplate(new TemplateV1())).toThrow(
       'Not implemented',
     );
   });

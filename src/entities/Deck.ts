@@ -2,7 +2,9 @@ import initSqlJs, { Database } from 'sql.js';
 
 import { ApkgPackage } from '../types.js';
 import { Card } from './Card.js';
-import { Template } from './Template.js';
+import { TemplateV1 } from './template/TemplateV1.js';
+
+export type DeckVersion = 1 | 2;
 
 /*
  * TODO:
@@ -18,6 +20,8 @@ import { Template } from './Template.js';
 export class Deck {
   #db: Database;
   #media: ApkgPackage['media'];
+
+  readonly version: DeckVersion;
 
   static async from(apkg: ApkgPackage) {
     const sql = await initSqlJs();
@@ -90,9 +94,9 @@ export class Deck {
     throw new Error('Not implemented');
   }
 
-  public removeCard(id: string);
-  public removeCard(card: Card);
-  public removeCard(value: string | Card) {
+  public removeCard(id: string): Promise<void>;
+  public removeCard(card: Card): Promise<void>;
+  public removeCard(value: string | Card): Promise<void> {
     throw new Error('Not implemented');
   }
 
@@ -100,19 +104,19 @@ export class Deck {
     throw new Error('Not implemented');
   }
 
-  public getTemplates(): Template[] {
+  public getTemplates(): TemplateV1[] {
     // In old deck cards templates and styles are located in table "col" -> field "models"
     // In new deck templates are located in templates table. Styles are located in "notetypes table"
     throw new Error('Not implemented');
   }
 
-  public addTemplate(template: Template) {
+  public addTemplate(template: TemplateV1) {
     throw new Error('Not implemented');
   }
 
   public deleteTemplate(id: string): void;
-  public deleteTemplate(template: Template): void;
-  public deleteTemplate(value: string | Template): void {
+  public deleteTemplate(template: TemplateV1): void;
+  public deleteTemplate(value: string | TemplateV1): void {
     throw new Error('Not implemented');
   }
 }

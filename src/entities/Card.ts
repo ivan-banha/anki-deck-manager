@@ -1,4 +1,4 @@
-import { Template } from './Template';
+import { TemplateV1 } from './template/TemplateV1.js';
 
 export class Card {
   constructor() {}
@@ -23,11 +23,11 @@ export class Card {
     throw new Error('Not implemented');
   }
 
-  public setFrontTemplate(template: Template) {
+  public setFrontTemplate(template: TemplateV1) {
     throw new Error('Not implemented');
   }
 
-  public setBackTemplate(template: Template) {
+  public setBackTemplate(template: TemplateV1) {
     throw new Error('Not implemented');
   }
 }

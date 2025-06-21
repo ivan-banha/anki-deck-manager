@@ -6,12 +6,12 @@ import { dirName } from '../constants.js';
 import { Card } from './Card.js';
 import { Deck } from './Deck.js';
 import { DeckManager } from './DeckManager.js';
-import { Template } from './Template.js';
+import { TemplateV1 } from './template/TemplateV1.js';
 
 describe('Deck from old .apkg version', () => {
   let deck: Deck;
   let card: Card;
-  let template: Template;
+  let template: TemplateV1;
 
   beforeEach(async () => {
     const manager = new DeckManager();
@@ -19,7 +19,7 @@ describe('Deck from old .apkg version', () => {
     deck = await manager.readDeck(deckPath);
 
     card = new Card();
-    template = new Template();
+    template = new TemplateV1();
   });
 
   it('should read deck name', async () => {

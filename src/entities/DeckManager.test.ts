@@ -6,7 +6,7 @@ import { dirName } from '../constants.js';
 import { DeckManager } from './DeckManager.js';
 
 describe('DeckManager', () => {
-  let manager: c;
+  let manager: DeckManager;
 
   beforeEach(() => {
     manager = new DeckManager();

@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { Template } from './Template';
+import { TemplateV1 } from './template/TemplateV1.js';
 
 describe('Template', () => {
-  let template: Template;
+  let template: TemplateV1;
 
   beforeEach(() => {
-    template = new Template();
+    template = new TemplateV1();
   });
 
   it('should throw on getId', () => {
